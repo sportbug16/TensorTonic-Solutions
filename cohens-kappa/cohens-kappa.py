@@ -1,25 +1,30 @@
-import numpy as np
+from collections import Counter
 def cohens_kappa(rater1, rater2):
     """
     Compute Cohen's Kappa coefficient.
     """
-    # Write code here
-    r1 = np.array(rater1)
-    r2 = np.array(rater2)
+    if len(rater1) != len(rater2):
+        raise ValueError("Lengths must match")
 
-    n = len(r1)
+    n = len(rater1)
 
     # observed agreement
-    p_o = np.mean(r1 == r2)
+    matches = sum(a == b for a, b in zip(rater1, rater2))
+    p_o = matches / n
 
-    labels = np.unique(np.concatenate([r1, r2]))
+    # label counts
+    c1 = Counter(rater1)
+    c2 = Counter(rater2)
 
-    p_e = 0
-    for l in labels:
-        p_e += (np.mean(r1 == l)) * (np.mean(r2 == l))
+    labels = set(c1) | set(c2)
 
+    # expected agreement
+    p_e = sum((c1[l]/n) * (c2[l]/n) for l in labels)
+
+    # denominator zero case
     if 1 - p_e == 0:
         return 1.0
 
-    return float((p_o - p_e) / (1 - p_e))
+    return (p_o - p_e) / (1 - p_e)
+
     pass
