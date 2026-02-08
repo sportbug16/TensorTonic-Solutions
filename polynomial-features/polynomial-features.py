@@ -2,7 +2,6 @@ def polynomial_features(values, degree):
     """
     Generate polynomial features for each value up to the given degree.
     """
-    # values = np.asarray(values)
     ans = []
     for x in values:
         ans_row = [x**i for i in range(degree+1)]
