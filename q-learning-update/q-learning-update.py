@@ -5,7 +5,6 @@ def q_learning_update(Q, s, a, r, s_next, alpha, gamma):
     Returns: updated Q-table Q_new
     """
 
-    # Ensure Q is a 2D float NumPy array
     Q = np.asarray(Q, dtype=float)
 
     Q_new = Q.copy()
