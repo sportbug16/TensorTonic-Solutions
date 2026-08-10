@@ -6,5 +6,5 @@ def swish(x):
     """
     # Write code here
     x = np.asarray(x, dtype=float)
-    return [i*(1/(1+np.exp(-i))) for i in x]
+    return x*(1/(1+np.exp(-x)))
     pass
